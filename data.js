@@ -6,7 +6,7 @@
                       newest post shows first), list the product ids
                       and/or links that belong to it.
    • Each post gets its own link:  yoursite/#<post id>
-     e.g. https://USERNAME.github.io/womensafety181/#safety-tools
+     e.g. https://pratikshasdev.github.io/womensafety/#helplines
    Keep the commas and quotes exactly like the examples.
    ===================================================================== */
 
@@ -60,44 +60,6 @@ const PRODUCTS = {
    products: ids from PRODUCTS above
    links:    any other useful links for this post                     */
 const POSTS = [
-  {
-    id: "safety-tools", number: 6, date: "2026-10-03",
-    title: "Safety tools every woman should carry",
-    image: "safety-tools.jpg",
-    products: ["pepper-spray", "safety-alarm", "whistle", "torch", "power-bank", "door-alarm"],
-  },
-  {
-    id: "call-181", number: 5, date: "2026-10-01",
-    title: "What happens when you dial 181?",
-    image: "call-181.jpg",
-    links: [
-      { label: "About One Stop Centres (Sakhi)", url: "https://socialwelfare.vikaspedia.in/viewcontent/social-welfare/women-and-child-development/women-development-1/one-stop-centre-scheme?lgn=en", note: "vikaspedia.in" },
-    ],
-  },
-  {
-    id: "state-helplines", number: 4, date: "2026-10-01",
-    title: "Women's safety helplines in your state",
-    image: "state-helplines.jpg",
-    links: [
-      { label: "NCW: other useful helplines", url: "https://www.ncw.gov.in/other-useful-helplines/", note: "ncw.gov.in" },
-    ],
-  },
-  {
-    id: "which-number", number: 3, date: "2026-10-01",
-    title: "Which number should you call?",
-    image: "which-number.jpg",
-    links: [
-      { label: "Report cyber crime online", url: "https://cybercrime.gov.in/", note: "cybercrime.gov.in" },
-    ],
-  },
-  {
-    id: "wallpaper", number: 2, date: "2026-10-01",
-    title: "Emergency numbers lock screen wallpaper",
-    image: "wallpaper.jpg",
-    links: [
-      { label: "Download the wallpaper", url: "images/wallpaper.jpg", note: "Open, then long-press to save" },
-    ],
-  },
   {
     id: "helplines", number: 1, date: "2026-10-01",
     title: "Numbers every woman in India must save",
