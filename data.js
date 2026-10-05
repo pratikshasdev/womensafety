@@ -61,6 +61,12 @@ const PRODUCTS = {
    links:    any other useful links for this post                     */
 const POSTS = [
   {
+    id: "safety-tools", number: 2, date: "2026-10-04",
+    title: "Safety tools every woman should carry",
+    image: "safety-tools.jpg",
+    products: ["pepper-spray", "safety-alarm", "whistle", "torch", "power-bank"],
+  },
+  {
     id: "helplines", number: 1, date: "2026-10-01",
     title: "Numbers every woman in India must save",
     image: "helplines.jpg",
