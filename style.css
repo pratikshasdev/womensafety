@@ -66,3 +66,15 @@ details[open] .chev{transform:rotate(90deg)}
 .empty{color:var(--muted);text-align:center;padding:16px}
 
 footer{color:var(--muted);font-size:.78rem;text-align:center;display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--line);padding-top:18px}
+
+/* ---------- New sections ---------- */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.panel h2{margin:0}
+.panel .hint{margin:0}
+.panel button.btn{font:inherit;font-weight:700;font-size:.88rem;cursor:pointer;border:0}
+.panel button.btn.blk{background:transparent;border:1.5px solid var(--line)}
+.status{margin:0;font-size:.85rem;color:var(--pink-soft);min-height:1.2em;overflow-wrap:anywhere}
+select.search{appearance:auto}
+.state-card{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.state-card .link{background:var(--surface-2)}
+.state-card .hint{font-size:.78rem}

@@ -9,6 +9,11 @@
   <meta property="og:description" content="Helplines, safety tools and links from every post.">
   <meta property="og:image" content="images/logo.png">
   <link rel="icon" href="images/logo.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="images/icon-192.png">
+  <meta name="theme-color" content="#2a0f3d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Safety 181">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -27,6 +32,32 @@
       <a class="num" href="tel:181"><b>181</b><small>Women Helpline</small></a>
       <a class="num" href="tel:14490"><b>14490</b><small>NCW 24×7</small></a>
       <a class="num" href="tel:1930"><b>1930</b><small>Cyber Crime</small></a>
+    </section>
+
+    <section class="panel" aria-labelledby="loc-h">
+      <h2 id="loc-h">Send my location</h2>
+      <p class="hint">Opens a message with your live location to send to someone you trust.</p>
+      <div class="btns">
+        <button type="button" class="btn amz" id="loc-sms">Text my location</button>
+        <button type="button" class="btn blk" id="loc-wa">WhatsApp</button>
+        <button type="button" class="btn blk" id="loc-copy">Copy</button>
+      </div>
+      <p class="status" id="loc-status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="panel" aria-labelledby="state-h">
+      <h2 id="state-h">Helplines in your state</h2>
+      <label class="hint" for="state">Choose your state or union territory</label>
+      <select class="search" id="state">
+        <option value="">Select…</option>
+      </select>
+      <div id="state-out"></div>
+    </section>
+
+    <section class="panel install" id="install" hidden>
+      <h2>Keep this on your phone</h2>
+      <p class="hint" id="install-text">Add this page to your home screen. Helpline numbers will open even without internet.</p>
+      <div class="btns"><button type="button" class="btn amz" id="install-btn" hidden>Add to home screen</button></div>
     </section>
 
     <section>
@@ -51,6 +82,7 @@
   </div>
 
   <script src="data.js"></script>
+  <script src="states.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

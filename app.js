@@ -106,3 +106,96 @@
     (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(done, () => { prompt("Copy this link:", url); });
   });
 })();
+
+/* ---------- Send my location ---------- */
+(function () {
+  const status = document.getElementById("loc-status");
+  if (!status) return;
+  const say = t => (status.textContent = t);
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+  function getMessage() {
+    const base = "I need help. Please call me or come to me.";
+    return new Promise(resolve => {
+      if (!("geolocation" in navigator)) { resolve(base); return; }
+      say("Getting your location…");
+      navigator.geolocation.getCurrentPosition(
+        p => {
+          const { latitude: la, longitude: lo } = p.coords;
+          resolve(`${base} My location: https://maps.google.com/?q=${la.toFixed(5)},${lo.toFixed(5)}`);
+        },
+        () => { say("Location is off, so the message won't include it. Call 112 if you are in danger."); resolve(base + " (Location unavailable.)"); },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
+      );
+    });
+  }
+
+  document.getElementById("loc-sms").addEventListener("click", async () => {
+    const msg = await getMessage();
+    say("Opening your messages app. Choose a contact and send.");
+    location.href = `sms:${isIOS ? "&" : "?"}body=${encodeURIComponent(msg)}`;
+  });
+  document.getElementById("loc-wa").addEventListener("click", async () => {
+    const msg = await getMessage();
+    say("Opening WhatsApp. Choose a contact and send.");
+    location.href = `https://wa.me/?text=${encodeURIComponent(msg)}`;
+  });
+  document.getElementById("loc-copy").addEventListener("click", async () => {
+    const msg = await getMessage();
+    try { await navigator.clipboard.writeText(msg); say("Copied. Paste it into any chat."); }
+    catch { say(msg); }
+  });
+})();
+
+/* ---------- State helpline finder ---------- */
+(function () {
+  const sel = document.getElementById("state");
+  const out = document.getElementById("state-out");
+  if (!sel || typeof STATES === "undefined") return;
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  sel.insertAdjacentHTML("beforeend", Object.keys(STATES).sort().map(s => `<option>${esc(s)}</option>`).join(""));
+
+  function show(name) {
+    const s = STATES[name];
+    if (!s) { out.innerHTML = ""; return; }
+    const phones = s.phone.map(p => `<a class="link" href="tel:${esc(p.replace(/[^\d]/g, ""))}">State Women Commission <span>${esc(p)}</span></a>`).join("");
+    const web = s.web ? `<a class="link" href="${esc(s.web)}" target="_blank" rel="noopener">Commission website <span>${esc(new URL(s.web).hostname)}</span></a>` : "";
+    out.innerHTML = `<div class="state-card">
+      <a class="link" href="tel:112">Police · Ambulance · Fire <span>112</span></a>
+      <a class="link" href="tel:181">Women Helpline (${esc(name)}) <span>181</span></a>
+      ${phones}${web}
+      ${!phones && !web ? `<p class="hint">We don't have a verified state commission number for ${esc(name)} yet. 112 and 181 work here.</p>` : ""}
+      <p class="hint">Office numbers from the National Commission for Women list, checked ${esc(STATES_CHECKED)}. Commission offices keep working hours; for emergencies use 112 or 181.</p>
+    </div>`;
+  }
+  sel.addEventListener("change", () => {
+    show(sel.value);
+    try { localStorage.setItem("ws181-state", sel.value); } catch {}
+  });
+  try { const saved = localStorage.getItem("ws181-state"); if (saved && STATES[saved]) { sel.value = saved; show(saved); } } catch {}
+})();
+
+/* ---------- Offline + add to home screen ---------- */
+(function () {
+  if ("serviceWorker" in navigator && location.protocol === "https:") {
+    navigator.serviceWorker.register("sw.js").catch(() => {});
+  }
+  const box = document.getElementById("install");
+  const btn = document.getElementById("install-btn");
+  const text = document.getElementById("install-text");
+  if (!box) return;
+  const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone;
+  if (standalone) return;
+  let deferred = null;
+  window.addEventListener("beforeinstallprompt", e => {
+    e.preventDefault(); deferred = e; box.hidden = false; btn.hidden = false;
+  });
+  btn.addEventListener("click", async () => {
+    if (!deferred) return;
+    deferred.prompt(); await deferred.userChoice; deferred = null; box.hidden = true;
+  });
+  if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+    box.hidden = false;
+    text.textContent = "On iPhone: tap the Share button, then “Add to Home Screen”. Helpline numbers will open even without internet.";
+  }
+})();
