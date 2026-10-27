@@ -45,6 +45,9 @@ Most helpline information online is scattered across government PDFs and state w
 | **Direct links to any post** | `…/womensafety/#3` or `…/#which-number` opens that post straight away, so captions, stories and auto-DMs can point to the exact spot. |
 | **Search** | Type a post number, a product ("pepper spray") or a helpline ("181") to find the right post. |
 | **Safety tools shop** | Affordable picks with Amazon and Blinkit buttons, approximate prices, and a one-line reason to carry each. |
+| **Helplines in your state** | Pick any of the 36 states and union territories to see 112, 181 and that State Women Commission's office number and website, from the NCW's official list. |
+| **Send my location** | One tap builds a message with your live location for SMS or WhatsApp, ready to send to someone you trust. |
+| **Works offline** | Add the page to your home screen and the helplines still open without internet. |
 | **Copy-link button** | Every post has a button that copies its direct link, ready to paste into a DM. |
 | **Phone-first design** | Built for a 400 px screen, readable in one hand, with large tap targets. |
 | **Lightweight and private** | No accounts, no cookies, no tracking scripts. The whole site is a few small files. |
@@ -74,6 +77,8 @@ flowchart LR
 
 | File | Role |
 |---|---|
+| [`states.js`](states.js) | State Women Commission office numbers and websites, sourced from the NCW list. |
+| [`sw.js`](sw.js) · [`manifest.webmanifest`](manifest.webmanifest) | Offline support and home screen install. |
 | [`data.js`](data.js) | The content: every post, every product, the Amazon tag. Adding a post is one small block of text. |
 | [`app.js`](app.js) | Builds post panels and product cards, handles search, deep links (`#3`, `#post-3`, `#which-number`) and copy-link. |
 | [`index.html`](index.html) · [`style.css`](style.css) | Page shell and brand styling (plum and pink, Poppins). |
@@ -84,6 +89,7 @@ flowchart LR
 - **Data separate from code.** Products are defined once and reused across posts, so a new post usually means adding only its id, title, image and a list of product names.
 - **Deep links over separate pages.** One page with anchors keeps hosting free and simple, and every link still lands on the right post.
 - **Links that don't break.** Amazon buttons use tagged search links by default, so they keep working when a specific listing goes out of stock. Exact product links are supported too.
+- **Verified numbers only.** State numbers are office lines from the National Commission for Women's published list; personal mobiles are left out, and states without a verified number fall back to 112 and 181.
 - **Accessible by default.** Native `<details>` panels, visible keyboard focus, alt text on images and reduced-motion support.
 
 ---
@@ -95,10 +101,11 @@ Ideas planned for the website and the Instagram page. ✅ = done.
 ### Website
 
 - ✅ Emergency numbers, per-post sections, deep links, search, safety tools shop
-- ⬜ **State helpline finder**: choose your state to see its police, women's commission and One Stop Centre contacts
+- ✅ **State helpline finder** for all 36 states and union territories
+- ✅ **Send my location** by SMS or WhatsApp
+- ✅ **Save to home screen and works offline**
 - ⬜ **Hindi and Marathi versions** of the page
-- ⬜ **"Share my location" button** that opens an SMS with your live location for a trusted contact
-- ⬜ **Save to home screen (offline)** so helpline numbers still open without internet
+- ⬜ **One Stop Centre (Sakhi) finder** by district
 - ⬜ **Downloadable lock-screen wallpaper** with emergency numbers
 - ⬜ **Interactive checklists**: night travel, cab rides, hotel and PG safety
 - ⬜ **Privacy-friendly visit counts** to learn which posts help people most
